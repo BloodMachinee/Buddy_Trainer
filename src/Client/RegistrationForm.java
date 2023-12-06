@@ -247,7 +247,7 @@ public class RegistrationForm extends javax.swing.JPanel {
     }//GEN-LAST:event_showPasswordActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // get the data entered
+        // coleta os dados inseridos
         String lastNameText = lastName.getText();
         String firstNameText = firstName.getText();
         String phoneNumberText = phoneNumber.getText();
@@ -255,21 +255,21 @@ public class RegistrationForm extends javax.swing.JPanel {
         String usernameText = username.getText();
         String passwordText = password.getText().toString();
 
-        // checks if all fields are not empty
+        // checa se todos os campos estão preenchidos
         if (lastNameText.isEmpty() || firstNameText.isEmpty() || phoneNumberText.isEmpty() || emailAddressText.isEmpty() || usernameText.isEmpty() || passwordText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Registration Form", JOptionPane.ERROR_MESSAGE);
         } else {
-            // pass the value to register the user
+            // passa o valor para registrar o usuário
             RegisterUser registerUser = new RegisterUser();
             registerUser.register(lastNameText, firstNameText, phoneNumberText, emailAddressText, usernameText, passwordText);
             
-            // close the registration form to direct the user in login page after a successful registration
+            // fecha o formulário de registro para direcionar o usuário para a página de login depois de cadastro efetivo
             JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             currentFrame.dispose();
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // declaração de variáveis – não modificar//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JTextField emailAddress;
     private javax.swing.JLabel emailLabel;
@@ -290,5 +290,5 @@ public class RegistrationForm extends javax.swing.JPanel {
     private javax.swing.JCheckBox showPassword;
     private javax.swing.JLabel userNameLabel;
     private javax.swing.JTextField username;
-    // End of variables declaration//GEN-END:variables
+    // fim de declaração de variáveis//GEN-END:variables
 }
