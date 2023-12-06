@@ -190,27 +190,27 @@ public class LoginForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // get the data entered
+        // coleta os dados inseridos
         String usernameText = username.getText();
         String passwordText = password.getText();
 
         LoginValidation loginValidation = new LoginValidation();
-        // pass the value in the validateLogin method in LoginValidation class through instantiation of LoginResult class
+        // passa o valor no método validateLogin na classe LoginValidation pela isntanciação da classe LoginResult 
         LoginResult result = loginValidation.validateLogin(usernameText, passwordText);
-        // retrive the returned value in LoginResult class and store it in the variable
+        // recupera o valor retornado na classe LoginResult  e o armazena na variável
         boolean isValidUser = result.isValid();
         int userID = result.getUserID();
         String userRole = result.getUserRole();
 
-        // store the userID retrieved from LoginResult to access it anywhere
+        // armazena o user_id recuperado pelo LoginResult para acessá-lo em qualquer local
         UserSession userManager = UserSession.getInstance();
         userManager.setUserID(userID);
         userManager.setUserRole(userRole);
 
-        // grant access if the credential enetered matches the data in the database
+        // concede acesso se as credenciais inseridas são equivalentes aos dados no banco
         if (isValidUser) {
             Frame frame = new Frame();
-            // redirects user to its own page designation based on their role
+            // redireciona o usuário para a sua própria pagina baseado em seu papel
             if ("Admin".equals(userRole)) {
                 frame.viewFrame("Client.AdminDashboard", "Appointment System - Admin Dashboard");
             } else {
@@ -239,7 +239,7 @@ public class LoginForm extends javax.swing.JPanel {
         currentFrame.dispose();
     }//GEN-LAST:event_signUpButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // declaração de variáveis – não modificar//GEN-BEGIN:variables
     private javax.swing.JLabel greetingMessage;
     private javax.swing.JLabel image;
     private javax.swing.JLabel jLabel2;
@@ -254,6 +254,6 @@ public class LoginForm extends javax.swing.JPanel {
     private javax.swing.JTextField username;
     private javax.swing.JPanel usernameContainer;
     private javax.swing.JLabel usernameLabel;
-    // End of variables declaration//GEN-END:variables
+    // fim de declaração de variáveis//GEN-END:variables
 
 }
