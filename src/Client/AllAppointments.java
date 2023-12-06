@@ -18,7 +18,7 @@ public class AllAppointments extends javax.swing.JPanel {
         displayAllAppointments();
     }
 
-    // table
+    // tabela
     private void displayAllAppointments() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
@@ -30,7 +30,7 @@ public class AllAppointments extends javax.swing.JPanel {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT appointment_id, client, date, time, purpose, status FROM appointment ");
 
-            // display the data in the row
+            // exibe dados em coluna
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString("client"), rs.getString("date"), rs.getString("time"), rs.getString("purpose"), rs.getString("status"), rs.getString("appointment_id"), rs.getString("appointment_id")});
             }
@@ -220,30 +220,30 @@ public class AllAppointments extends javax.swing.JPanel {
     }//GEN-LAST:event_profileMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // get the clicked column
+        // seleciona coluna clicada
         int selectedRow = jTable1.getSelectedRow();
         int clickedColumn = jTable1.columnAtPoint(evt.getPoint());
 
         if (selectedRow != -1) {
             try {
-                // get the row number from the selected row and store it as an appointment_id
+                // coleta número de coluna da coluna selecionada e armazena como um appointment_id
                 String appointmentIdStr = (String) jTable1.getValueAt(selectedRow, 5);
                 int appointmentId = Integer.parseInt(appointmentIdStr);
 
-                // check if the clicked column is the 5th or 6th column
+                // checa se a coluna selecionada é a quinta ou sexta coluna
                 if (clickedColumn == 5) {
-                    // pass the value to update the status to "Approved" in the database
+                    // passa o valor para atualizar o status para "Aprovado" no banco de dados
                     UpdateAppointmentStatus update = new UpdateAppointmentStatus();
                     update.updateAppointment(appointmentId, "Approved");
 
-                    // update the JTable to reflect the changes
+                    // atualiza a JTable para refletir as mudanças
                     jTable1.setValueAt("Approved", selectedRow, 4);
                 } else if (clickedColumn == 6) {
-                    // pass the value to update the status to "Cancelled" in the database
+                    // passa o valor para atualizar o status para "Cancelado" no banco de dados
                     UpdateAppointmentStatus update = new UpdateAppointmentStatus();
                     update.updateAppointment(appointmentId, "Cancelled");
 
-                    // update the JTable to reflect the changes
+                    // atualiza a Jtable para refeletir as mudanças
                     jTable1.setValueAt("Cancelled", selectedRow, 4);
                 }
             } catch (NumberFormatException e) {
@@ -252,7 +252,7 @@ public class AllAppointments extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Declaraçãod e varáveis - não modificar//GEN-BEGIN:variables
     private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -261,5 +261,5 @@ public class AllAppointments extends javax.swing.JPanel {
     private javax.swing.JLabel logout;
     private javax.swing.JLabel moduleTitle;
     private javax.swing.JLabel profile;
-    // End of variables declaration//GEN-END:variables
+    // Fim da declaraçãod e variáveis//GEN-END:variables
 }
