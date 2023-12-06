@@ -25,21 +25,21 @@ public class ClientDashboard extends javax.swing.JPanel {
 
     private void upcomingAppointments() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        // get the user_id of the user who logged in
+        // coleta user_id do usuário que fez login
         UserSession userManager = UserSession.getInstance();
         int userID = userManager.getUserID();
 
         try {
-            // establish connection to MySQL database
+            // estabelece conexão ao banco de dados MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/appointment_system", "root", "");
             Statement stmt = con.createStatement();
 
-            // sql query to retrieve client, time, and purpose from the database
+            // query sql para recuperar cliente, data e propósito de atendimento
             String sql = "SELECT date, time, purpose FROM appointment WHERE user_id = '" + userID + "' AND status = 'Approved' ORDER BY date ASC, time ASC";
             ResultSet rs = stmt.executeQuery(sql);
 
-            // display data in rows
+            // exibe dados em coluna
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString("date"), rs.getString("time"), rs.getString("purpose")});
             }
@@ -52,21 +52,21 @@ public class ClientDashboard extends javax.swing.JPanel {
 
     private void cancelledAppointments() {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        // get the user_id of the user who logged in
+        // coleta o user_id do usuário que fez login
         UserSession userManager = UserSession.getInstance();
         int userID = userManager.getUserID();
 
         try {
-            // establish connection to MySQL database
+            // estabelece conexão ao banco de dados sql
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/appointment_system", "root", "");
             Statement stmt = con.createStatement();
 
-            // sql query to retrieve client, time, and purpose from the database
+            // query sql para recuperar cliente, data e prpósito do atendimento
             String sql = "SELECT date, time, purpose FROM appointment WHERE user_id = '" + userID + "' AND status = 'Cancelled' ORDER BY date ASC, time ASC";
             ResultSet rs = stmt.executeQuery(sql);
 
-            // display data in rows
+            // exibe dados em colunas
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString("date"), rs.getString("time"), rs.getString("purpose")});
             }
@@ -388,12 +388,12 @@ public class ClientDashboard extends javax.swing.JPanel {
     }//GEN-LAST:event_profileMouseClicked
 
     private void bookAppointmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookAppointmentButtonActionPerformed
-        // get the data entered
+        // coleta os dados inseridos
         Date selectedDate = date.getDate();
         String timeText = time.getText();
         String purposeText = purpose.getText();
 
-        // checks if all fields are not empty
+        // checa se todos os campos estão preenchidos
         if (selectedDate == null || timeText.isEmpty() || purposeText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Book Appointment", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -401,18 +401,18 @@ public class ClientDashboard extends javax.swing.JPanel {
             time.setText("");
             purpose.setText("");
 
-            // retrive the user_id of the user who logged in
+            // recupera user_id do usuário que fez login
             UserSession userManager = UserSession.getInstance();
             int userID = userManager.getUserID();
             String userRole = userManager.getUserRole();
 
-            // pass the data to book the appointment
+            // passa os dados para agendar atendimento
             BookAppointment ba = new BookAppointment();
             ba.book(userID, userRole, "", selectedDate, timeText, purposeText);
         }
     }//GEN-LAST:event_bookAppointmentButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Declaração de variáveis – não modificar//GEN-BEGIN:variables
     private javax.swing.JButton bookAppointmentButton;
     private javax.swing.JPanel bookForm;
     private javax.swing.JPanel cancelledContainer;
@@ -434,5 +434,5 @@ public class ClientDashboard extends javax.swing.JPanel {
     private javax.swing.JLabel timeLabel;
     private javax.swing.JPanel upcomingContainer;
     private javax.swing.JLabel upcomingContainerTitle;
-    // End of variables declaration//GEN-END:variables
+    // Fim de declaração de variáveis//GEN-END:variables
 }
