@@ -1,4 +1,4 @@
-package Client;
+bpackage Client;
 
 import Server.Frame;
 import java.sql.DriverManager;
@@ -16,20 +16,20 @@ public class ClientAccounts extends javax.swing.JPanel {
         displayClientData();
     }
 
-    // table
+    // tabela
     private void displayClientData() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         try {
-            // establish connection to MySQL database
+            // estabelece conexão ao banco de dados MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/appointment_system", "root", "");
 
-            // sql query to retrieve, username, first name, last name, phone number, and email address
+            // query sql para coletar , usuário, primeiro nome, sobrenome, número de telefone, e endereço de e-mail
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT username, last_name, first_name, phone_number, email_address FROM user_account ORDER BY last_name ASC");
 
-            // display the data in the row
+            // exibe os dados em coluna
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString("last_name"), rs.getString("first_name"), rs.getString("phone_number"), rs.getString("email_address")});
             }
@@ -195,7 +195,7 @@ public class ClientAccounts extends javax.swing.JPanel {
         currentFrame.dispose();
     }//GEN-LAST:event_profileMouseClicked
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Declaração de variáveis - não modificar//GEN-BEGIN:variables
     private javax.swing.JLabel home;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -203,5 +203,5 @@ public class ClientAccounts extends javax.swing.JPanel {
     private javax.swing.JLabel logout;
     private javax.swing.JLabel moduleTitle;
     private javax.swing.JLabel profile;
-    // End of variables declaration//GEN-END:variables
+    // Fim da declaração de variáveis//GEN-END:variables
 }
