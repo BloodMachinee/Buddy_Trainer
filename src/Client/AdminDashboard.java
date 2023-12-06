@@ -25,7 +25,7 @@ public class AdminDashboard extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         try {
-            // establish connection to MySQL database
+            // estabelece conexão para banco de dados MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/appointment_system", "root", "");
             Statement stmt = con.createStatement();
@@ -33,21 +33,21 @@ public class AdminDashboard extends javax.swing.JPanel {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = dateFormat.format(currentDate);
 
-            // sql query to retrieve client, time, and purpose from the database
+            // query sql para recuperar cliente, data e propósito de atendimento
             String sql = "SELECT client, time, purpose FROM appointment WHERE date = '" + formattedDate + "' AND status = 'Approved' ORDER BY time ASC";
             ResultSet rs = stmt.executeQuery(sql);
 
-            // display data in rows
+            // exibe os dados em colunas
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString("client"), rs.getString("time"), rs.getString("purpose")});
             }
 
-            // sql query for counting all upcoming appointments as well as cancelled appointment for the current day
+            // query sql para contar todos os atendimentos vindouros e cancelados no dia presente
             String sql2 = "SELECT status FROM appointment WHERE status IN ('Approved', 'Cancelled') AND date = '" + formattedDate + "' ORDER BY date, time ASC";
             ResultSet rs2 = stmt.executeQuery(sql2);
             int appointmentCount = 0, cancelledCount = 0;
 
-            // count the total
+            // conta o total
             while (rs2.next()) {
                 String status = rs2.getString("status");
 
@@ -59,7 +59,7 @@ public class AdminDashboard extends javax.swing.JPanel {
             }
             con.close();
 
-            // display the total in jlabel
+            // exibe o total em jlabel
             totalAppointments.setText(Integer.toString(appointmentCount));
             cancelledAppointments.setText(Integer.toString(cancelledCount));
         } catch (Exception e) {
@@ -396,13 +396,13 @@ public class AdminDashboard extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bookAppointmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookAppointmentButtonActionPerformed
-        // get the data entered
+        // coleta os dados inseridos
         String clientNameText = clientName.getText();
         Date selectedDate = date.getDate();
         String timeText = time.getText();
         String purposeText = purpose.getText();
 
-        // checks if all fields are not empty
+        // checa se todos os campos estão preenchidos
         if (clientNameText.isEmpty() || selectedDate == null || timeText.isEmpty() || purposeText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Book Appointment", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -411,12 +411,12 @@ public class AdminDashboard extends javax.swing.JPanel {
             time.setText("");
             purpose.setText("");
 
-            // retrive the user_id of the user who logged in
+            // recupera o user_id do usuário que fez login
             UserSession userManager = UserSession.getInstance();
             int userID = userManager.getUserID();
             String userRole = userManager.getUserRole();
 
-            // pass the data to book the appointment
+            // passa os dados para agendar o atendimento
             BookAppointment ba = new BookAppointment();
             ba.book(userID, userRole, clientNameText, selectedDate, timeText, purposeText);
         }
@@ -450,7 +450,7 @@ public class AdminDashboard extends javax.swing.JPanel {
         currentFrame.dispose();
     }//GEN-LAST:event_profileMouseClicked
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Declaração de Varíaveis - não modificar//GEN-BEGIN:variables
     private javax.swing.JPanel allAppointmentsContainer;
     private javax.swing.JLabel allAppointmentsTitle;
     private javax.swing.JButton bookAppointmentButton;
@@ -478,6 +478,6 @@ public class AdminDashboard extends javax.swing.JPanel {
     private javax.swing.JLabel totalAppointments;
     private javax.swing.JPanel upcomingContainer;
     private javax.swing.JLabel upcomingContainerTitle;
-    // End of variables declaration//GEN-END:variables
+    // Fim da declaração de variáveis//GEN-END:variables
 
 }
